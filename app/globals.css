@@ -1,0 +1,437 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 18%;
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 45 100% 51%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 210 100% 50%;
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 0 0% 12%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 15%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 98%;
+    --secondary-foreground: 0 0% 12%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 45 100% 51%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 29.8%;
+    --input: 0 0% 29.8%;
+    --ring: 210 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.gradient-text {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-primary via-highlight to-accent;
+}
+
+.gradient-bg {
+  @apply bg-gradient-to-r from-primary via-highlight to-accent;
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(to right, #007bff, #6a1b9a, #ffc107);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(0, 123, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 123, 255, 0.05) 1px, transparent 1px);
+}
+
+.bg-dots {
+  background-image: radial-gradient(rgba(0, 123, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.clip-path-slant {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.clip-path-slant-reverse {
+  clip-path: polygon(0 0, 100% 15%, 100% 100%, 0 100%);
+}
+
+.hover-card-animation {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.hover-card-animation:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.service-card {
+  transition: all 0.3s ease;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #007bff, #6a1b9a);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* New animations */
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.5s ease forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+  will-change: opacity, filter;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.2);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin 15s linear infinite;
+  will-change: transform;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounceSlow 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes bounceSlow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-text-shimmer {
+  background: linear-gradient(to right, #007bff 0%, #6a1b9a 30%, #ffc107 50%, #6a1b9a 70%, #007bff 100%);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: textShimmer 5s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes textShimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.animate-border-pulse {
+  position: relative;
+}
+
+.animate-border-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #007bff, #6a1b9a, #ffc107, #6a1b9a, #007bff);
+  background-size: 400% 400%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderPulse 8s ease infinite;
+  will-change: background-position;
+}
+
+@keyframes borderPulse {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.perspective-container {
+  perspective: 1000px;
+}
+
+.tilt-card {
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-card:hover {
+  transform: rotateX(5deg) rotateY(5deg);
+}
+
+.tilt-card-reverse:hover {
+  transform: rotateX(-5deg) rotateY(-5deg);
+}
+
+.blur-load {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.blur-load::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: pulse 2.5s infinite;
+  background-color: var(--primary);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.blur-load.loaded::before {
+  animation: none;
+  content: none;
+}
+
+.blur-load img {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.blur-load.loaded img {
+  opacity: 1;
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.text-glow-accent {
+  text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+
+.text-glow-highlight {
+  text-shadow: 0 0 10px rgba(106, 27, 154, 0.5);
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-effect {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.magnetic-button {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+
+/* Improved contrast for accessibility */
+.dark .text-muted-foreground {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark .bg-muted {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Improved color combinations */
+.dark .text-highlight {
+  color: #9c4dcc; /* Lighter purple for better contrast in dark mode */
+}
+
+.dark .text-primary {
+  color: #3b9eff; /* Lighter blue for better contrast in dark mode */
+}
+
+.dark .text-accent {
+  color: #ffd54f; /* Lighter amber for better contrast in dark mode */
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-float-slow,
+  .animate-pulse-glow,
+  .animate-spin-slow,
+  .animate-bounce-slow,
+  .animate-text-shimmer,
+  .animate-border-pulse {
+    animation: none !important;
+  }
+
+  .hover-card-animation:hover,
+  .service-card:hover,
+  .tilt-card:hover,
+  .tilt-card-reverse:hover {
+    transform: none !important;
+  }
+}
+
+/* Image loading states */
+.image-loading-skeleton {
+  @apply bg-muted animate-pulse rounded-md overflow-hidden;
+}
+
+/* High contrast mode improvements */
+@media (forced-colors: active) {
+  .gradient-text {
+    color: CanvasText;
+    background: none;
+    -webkit-text-fill-color: initial;
+  }
+
+  .animate-text-shimmer {
+    color: CanvasText;
+    background: none;
+    -webkit-text-fill-color: initial;
+  }
+
+  .animate-border-pulse::after,
+  .gradient-border::before {
+    border: 2px solid CanvasText;
+    background: none;
+  }
+}
